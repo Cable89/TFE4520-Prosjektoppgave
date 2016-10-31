@@ -1,5 +1,23 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}			%Figurer
+\usepackage{fancyhdr}			%Fancy headere
+\usepackage[pass]{geometry} 	%Sentrere Forside og tittelside
+%\usepackage[european ports]{circuitikz} %Kretsdiagram
+\usepackage{emptypage}
+\usepackage[hidelinks]{hyperref}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption}
+\usepackage[]{natbib} %referanser
+\usepackage[section]{placeins}	%Holder floats innenfor seksjonen de er definert
+\usepackage{blindtext} %Random fill
+\usepackage{cleveref}
+\usepackage{listings}
+\usepackage{todonotes}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\usepackage{tikz-timing}
 
 \title{TFE4520 Prosjektoppgave}
 \author{Øystein Smith}
@@ -9,15 +27,14 @@
 
 \maketitle
 
-\section{Introduction}
-\subsection{Tesla}
-\subsection{DRSSTC}
+\input{src/introduction}
+\input{src/DRSSTC}
 \subsubsection{Model of DRSSTC}
-\subsection{Reliability}
-\subsection{Mass producability}
-\subsection{Customer}
+\input{src/reliability}
+\input{src/mass_producability}
+\input{src/customer}
+\input{src/system_architecture}
 \input{src/specification}
-\section{System ARchitecture}
 \section{Increasing Reliability}
 \subsection{Sub module detection}
 \subsection{Communication between modules}

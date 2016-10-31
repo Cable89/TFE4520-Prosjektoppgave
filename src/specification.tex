@@ -1,12 +1,21 @@
 \section{Specification}
 The system should take audio as input and output acoustic audio by means of an high voltage electric discharge in air creating plasma by the means of a resonant transformer (tesla coil). The system should also be designed such that it will always be functional, and in the case of the system not being functional should fail in a safe and non-destructive way (safe having priority over non-destructive). As well as indicating witch part of the system is non-functional. The system should also be designed in such a way that this non-functioning part may be swapped for a spare functioning part.
+\todo{Spesifisere hva som skal være trygt, hvordan kan det være farlig?}
+
+\todo{Spesifisere non-destructive failure propagation}
+
+\todo{Overvåkningsfunksjonalitet i systemet}
+
+\todo{Funkjsonelle krav, ikke funksjonelle krav.}
+
+
 
 With this specification in mind the system has been partitioned into sub-systems listed below. The sub systems has been assigned an arbitrary part number starting in "TK".
 
-\begin{list}
+\begin{enumerate}
     \item TK100 Signalgenerator
     \item TK500 Driver
-    \begin{list}
+    \begin{enumerate}
         \item TK501 Frontpanel
         \item TK502 Frontpanel LEDS
         \item TK510 Signalbakplan
@@ -22,9 +31,9 @@ With this specification in mind the system has been partitioned into sub-systems
         \item TK530 Kraftbakplan
         \item TK531 Utgangstrinn
         \item TK532 Kondensatorkort
-    \end{list}
+    \end{enumerate}
     \item TK1000 Spolerigg
-\end{list}
+\end{enumerate}
 
 \subsection{TK100 Signalgenerator}
 Should take a wide range of inputs, and output the triggering signal for the driver. Modulated on a carrier wave.
@@ -39,17 +48,17 @@ The triggering signal should be pulse width modulated with a logical high having
 
 \subsubsection{TK501 Frontpanel}
 Should have a height of 4 standard rack units (4U) (17.78cm). Partitioned into multiple parts.
-\subsubsubsection{Signal backplane card matrix}
+\subsubsection{Signal backplane card matrix}
 Use the entire height, height divided into equal parts for each card in the signal backplane card. Each division should contain four LEDs; Green (Card inserted), Red (Fault), Green (status), Yellow (led in button). A field for card name. Space for buttons depending on the needs of the specific card.
 
-\subsubsubsection{Power backplane card matrix}
+\subsubsection{Power backplane card matrix}
 Three leds for each of the three cards in the power backplane. Green (card inserted), Red (fault), Green (status).
 
-\subsubsubsection{Display}
+\subsubsection{Display}
 Voltage meter for output voltage.
 Ampere meter for output current.
 
-\subsubsubsection{Power buttons}
+\subsubsection{Power buttons}
 Emergency stop
 Spring loaded rotary switch: slow start
 Momentary switch: Power on
