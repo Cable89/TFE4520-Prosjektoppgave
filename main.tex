@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[12pt,English,a4paper,twoside,openright]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
@@ -15,17 +15,82 @@
 \usepackage{blindtext} %Random fill
 \usepackage{cleveref}
 \usepackage{listings}
+\usepackage{pdfpages}
+\usepackage{url}
+\usepackage{tikz-timing}
 \usepackage{todonotes}
 \lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
-\usepackage{tikz-timing}
 
-\title{TFE4520 Prosjektoppgave}
-\author{Øystein Smith}
-\date{September 2016}
+\newcommand{\blankpage}{
+	\newpage
+	\thispagestyle{empty}
+	\mbox{}
+	\newpage
+}
 
+
+			% Variables %
+% % % % % % % % % % % % % % % % % % % % % % %
+\newcommand{\MyAuthor}{Øystein Smith}
+\newcommand{\MyTitle}{Portable and reliable DRSSTC demonstrator\\ }
+\newcommand{\MyHeader}{\MyTitle}
+\newcommand{\MyFag}{TFE4520 Prosjektoppgave}
+
+% % % % % % % % % % % % % % % % % % % % % % % 
+
+% Header og footer
+\title{\MyTitle{}}
+\author{\MyAuthor{}}
+\fancyhead[C]{\MyHeader{}}
+\fancyfoot[C]{\roman{page}}
+
+\tolerance = 5000
+\hbadness = \tolerance
+\pretolerance = 2000
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
-\maketitle
+\input{src/frontpage}
+
+% Side 2 med kun tittel %
+% % % % % % % % % % % % % % %
+%Side 2 med kun tittel
+\newpage
+\thispagestyle{empty}
+\textsc{}\\
+[4cm]
+\begin{center}
+\textsc{\Huge \MyTitle{}}
+\end{center}
+\restoregeometry %Resten av dokumentet skal ikke være sentrert
+\newpage
+
+% Abstract %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\setcounter{page}{1}
+\label{abstract}
+\input{src/abstract}
+\newpage
+
+% Preface (optional)% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{src/preface.tex}
+\newpage
+
+%Begin TOC
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents
+\listoffigures
+\listoftables
+\cleardoublepage % begin on right page
+
+% Begin DOC
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\fancyfoot[C]{\arabic{page}}
+\setcounter{page}{1}
 
 \input{src/introduction}
 \input{src/DRSSTC}
@@ -49,4 +114,9 @@
 \section{Discussion}
 \section{Conclusion}
 
+% Referanser (biblatex) %
+% % % % % % % % % % % % % % % % % % % % % %
+\newpage
+\bibliographystyle{plain}
+\bibliography{ref}
 \end{document}

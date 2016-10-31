@@ -1,2 +1,8 @@
 \section{System Architecture}
+To achieve the goal of high maintainability a back plane architecture was chosen \todo{reference back plane}. The choice of back plane is also defended as a way to eliminate wires and connectors between different pcbs, as wires can fall out during transport, and glue is not an alternative as it should be easy to change a module.
+
+Bus on back plane, pros: can insert card anywhere cons: risk of inserting two of one card.
+
+
 \subsection{Card inserted bus}
+When partitioning the system into several modules physically spread over multiple pcbs there is a risk of one module not being connected to the system, either because of issues with transportation, or by human error. To mitigate this risk, detection of wich cards is inserted into the back plane is implemented. This is done by a bus \todo{Specify wich kind of bus and reference.} \todo{insert exerpt from schematic of bus} \todo{Draw bus architecture}
