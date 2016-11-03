@@ -1,7 +1,12 @@
 \section{Specification}
-The system should take audio as input and output acoustic audio by means of an high voltage electric discharge in air creating plasma by the means of a resonant transformer (tesla coil). The system should also be designed such that it will always be functional, and in the case of the system not being functional should fail in a safe and non-destructive way (safe having priority over non-destructive). As well as indicating witch part of the system is non-functional. The system should also be designed in such a way that this non-functioning part may be swapped for a spare functioning part.
+The overall specification of the system is described in \cref{intro}.
+
+One of the dangers with a DRSSTC is death by electrocution, the safest and most practical way to prevent this is by a set of procedures regarding operation\todo{Reference procedures}, and the possibility to disconnect the coil rig from the rest of the system easily. To be able to disconnect the coil easily a user friendly connector should be used.
+
+A failure mode is the coil rig catching fire due to too much power dissapation, the power limiter should prevent this. Bærebølgedeteksjon, plugging av signalkabel.
 \todo{Spesifisere hva som skal være trygt, hvordan kan det være farlig?}
 
+By non-destructive failure propagation we mean that the failure of one module should not propagate to another module. Or lead to the coil rig catching fire or outputting high voltage when it is not expected.
 \todo{Spesifisere non-destructive failure propagation}
 
 \todo{Overvåkningsfunksjonalitet i systemet}
@@ -10,7 +15,21 @@ The system should take audio as input and output acoustic audio by means of an h
 
 
 
-With this specification in mind the system has been partitioned into sub-systems listed below. The sub systems has been assigned an arbitrary part number starting in "TK".
+With this specification in mind the system has been partitioned into sub-systems listed below. The sub systems has been assigned an arbitrary part number with the prefix "TK".
+
+\begin{figure}
+    \centering
+    \includegraphics[trim={5cm 9cm 4.8cm 6.5cm},clip,width=\textwidth]{img/Blokkskjema.pdf}
+    \caption{Block diagram}
+    \label{fig:blokksjema}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[trim={5cm 2cm 5cm 1cm},clip,width=\textwidth]{img/TK500_Driver.pdf}
+    \caption{Block diagram of TK500 Driver}
+    \label{fig:tk500}
+\end{figure}
 
 \begin{enumerate}
     \item TK100 Signalgenerator
@@ -36,23 +55,40 @@ With this specification in mind the system has been partitioned into sub-systems
 \end{enumerate}
 
 \subsection{TK100 Signalgenerator}
-Should take a wide range of inputs, and output the triggering signal for the driver. Modulated on a carrier wave.
+Should take a wide range of inputs, and output the triggering signal $X2$ for the driver. And consist of the pulse shaper and signal source mentioned in \cref{DRSSTC} and shown in \cref{fig:func_block}. The output signal $X2$ should be sent through a optical plastic fibre to be against EMI as mentioned in \cref{sa} and \cref{optical}. The output signal should also be modulated on a carrier wave as described closer in \cref{triggering_signal} and \cref{carrier_wave}.
+\todo{Navn på signaler her og i arkitekturseksjonen må stemme med hverandre}
+
 \subsubsection{Triggering signal}
-The triggering signal should be in the hearable frequency range with a maximal pulse width (high) of $680\mu S$.
+\label{triggering_signal}
+The triggering signal $X2$ should be in the hearable frequency range with a configurable maximal pulse width (high) in the approximate range $0\mu S - 800\mu S$. The triggering signal should also have a configurable minimum time between pulses.
 \subsubsection{Carrier wave}
-The carrier wave should have a sufficently high frequency as according to the nyquist-shannon sampling theorem, in addition to be easily detected in the recieving end.
+\label{carrier_wave}
+The carrier wave $CW$ should have a sufficiently high frequency as according to the Nyquist-Shannon sampling theorem, in addition to be easily detected in the receiving end.
 \subsubsection{Modulation}
-The triggering signal should be pulse width modulated with a logical high having a duty cycle of 80\% and logical low having a duty cycle of 20\%.
+\label{modulation}
+The triggering signal should be pulse width modulated $PWM$ with a logical high having a duty cycle of 80\% and logical low having a duty cycle of 20\%.
+\begin{figure}[h!]
+    \centering
+    \begin{tikztimingtable}
+        CW (2MHz) & L 17{2C} G 1L \\
+        Triggering Signal $X2$ & 9L 8H 19L \\
+        PWM & 1L 1H 3L 1H 3L 3H 1L 3H 1L 1H 3L 1H 3L 1L 1H 3L 1H 3L 1L 1H \\
+    \end{tikztimingtable}
+    \caption{Modulated signal timing diagram}
+    \label{fig:cs_td}
+\end{figure}{}
 
 \subsection{TK500 Driver}
 
+The driver should take the output of the signal generator (TK100) as input, and output a 160VDC signal at the resonant frequency of the coil rig while the input signal is high and the peak power output does not exceed a configurable level. The driver should also have the capacitor of the primary resonant circuit integrated.
+
 \subsubsection{TK501 Frontpanel}
 Should have a height of 4 standard rack units (4U) (17.78cm). Partitioned into multiple parts.
-\subsubsection{Signal backplane card matrix}
-Use the entire height, height divided into equal parts for each card in the signal backplane card. Each division should contain four LEDs; Green (Card inserted), Red (Fault), Green (status), Yellow (led in button). A field for card name. Space for buttons depending on the needs of the specific card.
+\subsubsection{Signal back plane card matrix}
+Use the entire height, height divided into equal parts for each card in the signal back plane card. Each division should contain four LEDs; Green (Card inserted), Red (Fault), Green (status), Yellow (led in button). A field for card name. Space for buttons depending on the needs of the specific card.
 
-\subsubsection{Power backplane card matrix}
-Three leds for each of the three cards in the power backplane. Green (card inserted), Red (fault), Green (status).
+\subsubsection{Power back plane card matrix}
+Three leds for each of the three cards in the power back plane. Green (card inserted), Red (fault), Green (status).
 
 \subsubsection{Display}
 Voltage meter for output voltage.
@@ -65,7 +101,7 @@ Momentary switch: Power on
 Momentary switch: Power off
 
 \subsection{TK510 Signalbakplan}
-The siglan backplane should have six slots for signal modules, and three slots for power supplies.
+The signal back plane should have six slots for signal modules, and three slots for power supplies.
 \subsubsection{Signal module slot}
 1 bus with straps for pull up and pull down on bus lines.
 Card inserted detection
@@ -73,3 +109,10 @@ LED signals to front panel
 Misc signals to front panel
 Two contacts for signals other places inside chassis
 Supply voltages and ground
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[trim={4.1cm 14.3cm 21.2cm 3.3cm},clip,width=\textwidth]{img/TK510_Signalbakplan.pdf}
+    \caption{Signal module card slot connector (detail from schematic of TK510 Signalbakplan)}
+    \label{fig:signalmodulslot}
+\end{figure}
