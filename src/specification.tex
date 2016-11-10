@@ -102,13 +102,18 @@ Momentary switch: Power off
 
 \subsection{TK510 Signalbakplan}
 The signal back plane should have six slots for signal modules, and three slots for power supplies.
+
 \subsubsection{Signal module slot}
-1 bus with straps for pull up and pull down on bus lines.
-Card inserted detection
-LED signals to front panel
-Misc signals to front panel
-Two contacts for signals other places inside chassis
-Supply voltages and ground
+The signal module slot should have the following signals:
+\begin{itemize}
+    \item 1 bus with straps for pull up and pull down on bus lines. (B1-B14)
+    \item Card inserted detection (A1)
+    \item LED signals to front panel (A1-A5)
+    \item Misc signals to front panel (A6-A10)
+    \item Two contacts for signals other places inside chassis (A11-A14)
+    \item Supply voltages and ground (A15-A18 \& B15-B18)
+\end{itemize}
+The pinout on the module slot connector is shown in \cref{fig:signalmodulslot}
 
 \begin{figure}[h]
     \centering
