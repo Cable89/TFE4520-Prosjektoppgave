@@ -1,11 +1,96 @@
 \subsection{Reliability}
 \todo{Sources}
-\todo{Lifecycle management}
-\todo{Reliability model, fault tree diagram}
+\todo{Lifecycle management?}
 In every system there is certain demands for reliability (reliablilty describes the ability of a system to function under certain condiditons for a specified period of time). The DRSSTC should function in indoor conditions and dry outdoors weather, the DRSSTC should also function after sitting in storage for up to one year. And should function after transportation by trolley and or car. And after sitting on a stage during rigging. The DRSSTC should function for several years with transportation and rigging up to 30 times a year.
 
-To achieve this the system should also have high maintainability. It should take a maximum of one day(downtime?) to fix an error (even errors provoked by design errors).
+To achieve this the system should also have high maintainability. It should take a maximum of one day(downtime?) to fix an error.
 
-By design errors we mean errors that still allow operation for some time before failing.
+\subsubsection{Fault tree}
+A method for analyzing reliability of a system is using a fault tree. The fault trees for this system is shown in \cref{fig:ftree_drsstc_dest} and \cref{fig:ftree_drsstc}. The inputs are failure sources that can occur these are listed in \cref{tab:fail_sources}. The probability P for each failure source is calculated from the number of times this failure has occurred divided by the number times the system has been used. These numbers are extracted from the log entries in Omega Verksteds log book for their tesla coil. A total of 33 uses are logged in the period 2013-08-22 to 2016-11-07, the real number of uses should be assumed higher as the log book is not written at each use due to human error. The fault sources that does not occur in the log book is assumed to have a probability P of less than 0,03.\todo{Calculate total probability of error}. Some of these failure sources are due to operator error and is outside of this report to fix. These failures sources are F3, F5, and F7 they are attempted to fix with procedures see attachment XX\todo{Attach procedures}. The failure source with the highest probability $P=0,12$ is F8 this is a failure that does not occur by itself but as a consequence of other failure sources as shown in \cref{fig:ftree_drsstc_dest} and must thus be fixed by addressing the failure sources leading to this failure. The failure source remaining with the highest probability $P=0,09$ is F2 defective optical cable.
 
-By using a back plate design and keeping backup modules the downtime demand should be met. \todo{Mer analytisk}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|p{0.05\textwidth}|p{0.1\textwidth}|p{0.75\textwidth}|}
+        \hline
+        & P & Description \\ \hline
+        F0 & 0,03 & System is transported and vibrations shakes loose the wires on the high voltage side of the system.  \\ \hline
+        F1 & <0,03 & No carrier wave (CW) detection is implemented in the optical reciever of the driver TK500, or this detection is defective.\\ \hline
+        F2  & 0,09 & Optical cable is defective (someone has stepped on it).\\ \hline
+        F3  & 0,03 & Optical cable is missing.\\ \hline
+        F4  & < 0,03 & Pulse shaper (TK100) is defective.\\ \hline
+        F5  & 0,06 & Pulse shaper is set to too high volume.\\ \hline
+        F6  & 0,03 & Power limiter is defective.\\ \hline
+        F7  & 0,06 & Power limiter is set to too high power.\\ \hline
+        F8  & 0,12 & Destructive failure happens, power amplifier or the load capacitor C1 catches fire. \\ \hline
+        F9  & 0,03 & Internal cables are disconnected due to vibrations while transporting the system. \\ \hline
+    \end{tabular}
+    \caption{Failure sources}
+    \label{tab:fail_sources}
+\end{table}
+
+\begin{figure}[h]
+\begin{circuitikz}[scale = 0.65, transform shape] \draw
+(0,0) node[] (x0){F7: Limiter settings}
+(0,1) node[] (x1){F6: Limiter def.}
+(0,2) node[] (x2){F5: Sig. gen settings}
+(0,3) node[] (x3){F4: Sig. gen def.}
+(0,4) node[] (x4){F3: Optical cable missing}
+(0,5) node[] (x5){F2: Optical cable def.}
+(0,6) node[] (x6){F1: CW detection def.}
+(0,7) node[] (x7){F0: HV cables disconnected}
+(15,2) node[] (x8){F8: Destructive failure}
+(4,6.5) node[or port] (myor1) {}
+(4,4.5) node[or port] (myor2) {}
+(4,2.5) node[or port] (myor3) {}
+(6,1.5) node[and port] (myand1) {}
+(8,2.5) node[or port] (myor4) {}
+(10,3) node[and port] (myand2) {}
+(12,2) node[or port] (myor5) {}
+(x0) -- (myor5.in 2)
+(x1) -- (myand1.in 2)
+(x2) -- (myor3.in 2)
+(x3) -- (myor3.in 1)
+(x4) -- (myor2.in 2)
+(x5) -- (myor2.in 1)
+(x6) -- (myor1.in 2)
+(x7) -- (myor1.in 1)
+(myor5.out) -- (x8)
+(myor1.out) -- (myand2.in 1)
+(myor2.out) -- (myor4.in 1)
+(myor3.out) -- (myand1.in 1)
+(myand1.out) -- (myor4.in 2)
+(myor4.out) -- (myand2.in 2)
+(myand2.out) -- (myor5.in 1);
+\end{circuitikz}
+\caption{Fault tree for destructive failure of DRSSTC}
+    \label{fig:ftree_drsstc_dest}
+\end{figure}
+
+\begin{figure}[h]
+\begin{circuitikz} \draw
+(0,2) node[] (x0){F8: Destructive failure}
+(0,1) node[] (x1){F9: Internal cables missing}
+(0,0) node[] (x2){F2: Optical cable defective}
+(8,1.5) node[] (x3){Failure}
+(4,0.5) node[or port] (myor1) {}
+(6,1.5) node[or port] (myor2) {}
+(x0) -- (myor2.in 1)
+(x1) -- (myor1.in 1)
+(x2) -- (myor1.in 2)
+(myor1.out) -- (myor2.in 2)
+(myor2.out) -- (x3);
+\end{circuitikz}
+\caption{Fault tree for non-destructive failure of DRSSTC}
+    \label{fig:ftree_drsstc}
+\end{figure}
+
+% Fault tree diagram
+
+% Utgangstrinn blåser = For mye effekt = (limiter feil innstilt || limiter defekt ) && ( (Signalgenerator feil innstilt || sig. gen defekt) || (optisk kabel detti ut && bærebølgedeteksjon def.) )
+% ledninger mellom moduler detter ut
+% Mosfetdrivere blåser = ?
+% utgangskondensator blåser = For lav rating på kondis ? for høy effekt
+% optisk inn dør = tråkket på
+% overslag mellom ting på hv siden etter risting
+% utgangskabelen smelter
+
