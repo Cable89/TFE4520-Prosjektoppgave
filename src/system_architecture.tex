@@ -1,7 +1,7 @@
 \section{System Architecture}
 \label{sa}
 \todo{Figures}
-To achieve the goal of high maintainability a back plane architecture was chosen \todo{reference back plane}. The choice of back plane is also defended as a way to eliminate wires and connectors between different pcbs, as wires can fall out during transport, and glue is not an alternative as it should be easy to change a module. The backplane provides a good electrical and mechanical connection as well as some additional features. \todo{Revise sentence, move someplace else?}
+To achieve the goal of high maintainability a back plane architecture was chosen. The choice of back plane is also defended as a way to eliminate wires and connectors between different pcbs, as wires can fall out during transport, and glue is not an alternative as it should be easy to change a module. The backplane provides a good electrical and mechanical connection as well as some additional features. \todo{Revise sentence, move someplace else?}
 
 The signal source needs to be a long distance away from the coil rig due to safety reasons, and the power amplifier needs to be as close to the coil rig as possible to keep ohmic losses in the resonant circuit as low as possible. The Interrupter and power limiter has low voltage feedback signals X8 and X9 as inputs. Because of the nature of a tesla coil, there is a lot of electromagnetic interference (EMI) present such that low voltage signals needs to be sent through a channel that is robust against electromagnetical noise. Thus the system is partitioned such that the signal source and pulse shaper TK100 is placed together, and the rest of the system placed together in a shielded enclosure TK500. The signal from the pulse shaper X2 should then be sent through a robust channel. Optical plastic fibre is chosen described in \cref{optical}. X8 and X9 are then short and inside a shielded enclosure, and no other protection from EMI is required.
 
@@ -26,6 +26,28 @@ The bus consists of one wire named Kort\_innsatt, pulled high by a $10k\Omega$ r
 
 \subsection{Optical channel}
 \label{optical}
+
+As mentioned in \cref{sa} a robust channel is needed for signal X2. For this plastic optical fibre is chosen. To further increase the robustness the signal (X2) should be modulated. To reduce complexity a simple modulation should be chosen. To remove the failure source of the optical cable missing (F3) and possibly some cases of defective optical cable (F2) the carrier wave (CW) should be chosen so that it is easily detectable in the receiving end.
+
+\begin{figure}
+    \centering
+    \tikzstyle{int}=[draw, fill=yellow!20, minimum size=2em]
+    \tikzstyle{init} = [pin edge={to-,thin,black}]
+    \begin{tikzpicture}[node distance=2.5cm,auto,>=latex']
+        \node [int, pin={[init]above:$CW$}] (a) {tx};
+        \node (b) [left of=a,node distance=2cm, coordinate] {a};
+        \node [int] (c) [right of=a] {rx};
+        \node [int] (d) [left of=a] {TK100};
+        \node [int] (e) [right of=c] {TK500};
+        \node [coordinate] (end) [right of=c, node distance=2cm]{};
+        \path[->] (d) edge node {$X2$} (a);
+        \path[->] (a) edge node {$PWM$} (c);
+        \draw[->] (c) edge node {$X2$} (e) ;
+    \end{tikzpicture}
+    \caption{Diagram of optical channel}
+    \label{fig:my_label}
+\end{figure}
+
 
 \subsection{Bus}
 \label{bus}
