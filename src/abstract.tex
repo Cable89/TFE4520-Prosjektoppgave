@@ -1,3 +1,11 @@
 \begin{abstract}
-    
+Universities, knowledge centers and other institutions has the need for equipment that demonstrates physical phenomena in interesting and audience friendly ways. An example of this is a Double Resonant Solid State Tesla Coil (DRSSTC). It is desirable that the instrument is portable, reliable, and safe to use.
+
+The system should take audio as input and output acoustic audio by means of an high voltage electric discharge in air creating plasma (streamer) by the means of a resonant transformer (tesla coil). The system should also be designed such that it will always be functional, and in the case of the system not being functional should fail in a safe and non-destructive way (safe having priority over non-destructive). As well as indicating witch part of the system is non-functional. The system should also be designed in such a way that this non-functioning part may be swapped for a spare functioning part. This was acheived with implementing a back plane architecture with detection of if modules are present, and signals that can be used by modules to report errors.
+
+Before any improvements the system had a probability of failure P(F)= 0,71. After improvements we have removed F0 and F9 from the general fault tree, and F2, F3 from the destructive fault tree (F8) and the probability of failure is reduced to P(F)= 0,18. The probability for destructive failure P(F8) is reduced from 0,67 to 0,10.
+
+The existing circuit design and implementation had problems with reliability. The reliability of the system was calculated by the use of a source tree based on logged faults to P(F)=0,71. After implementing a back plane design, and adding carrier wave detection on the input signal the reliability increased to P(F)=0,18. The probability of destructive failure was reduced from 0,67 to 0,10. This is a large increase in reliability. Portability was present in the existing implementation, and has been increased by removing failure sources that occurred when moving the system.
+
+
 \end{abstract}

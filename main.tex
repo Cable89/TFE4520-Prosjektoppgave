@@ -72,11 +72,12 @@
 
 % Abstract %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\pagestyle{fancy}
+\thispagestyle{empty}
 \setcounter{page}{1}
 \label{abstract}
 \input{src/abstract}
 \newpage
+\pagestyle{fancy}
 
 % Preface (optional)% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -111,11 +112,11 @@
 %\section{User interface}
 \input{src/schematics}
 \input{src/layout}
-\input{src/assembly}
+%\input{src/assembly}
 %\input{src/testing}
 %\subsection{Measurements(techniques)}
 \input{src/results}
-\input{src/discussion}
+%\input{src/discussion}
 \input{src/conclusion}
 
 % Referanser (biblatex) %
@@ -129,7 +130,21 @@
 \newpage
 \begin{appendices}
 \input{src/specification}
+\newpage
+\section{Schematics}
+  \label{sec:schematics}
+  \begin{center}
+  \vspace*{\fill}
+  This page is intentionally left (almost) blank.
+  \vspace*{\fill}
+  \end{center}
+  \includepdf[pages={1-8},landscape=true]{TK500_design_documentation.PDF}
+  \includepdf[pages={13-20},landscape=true]{TK500_design_documentation.PDF}
+  
+  \input{src/appendixC.tex}
+
 \end{appendices}
+
 
 
 \end{document}

@@ -1,5 +1,5 @@
 \section{Layout}
-The layout for this system is also done in Altium desginer and is attached \todo{Add attachement}.
+The layout for this system is also done in Altium desginer and is attached in appendix C. The layout for TK510, TK511, TK520, TK530, TK531, and TK532 is completed, and attached. The source files in Altium format can be found at \citep{githubtesla}.
 
 \subsection{PCB identification}
 To easily identify the pcbs (and modules) markings are placed in silk screen of all the pcbs in the same way. The Part number of the module, the date manufactured. And Omega Verksteds logo. See \cref{fig:tk530_tekst}.
@@ -22,14 +22,20 @@ The connectors for the power modules are offset to prevent power modules to be i
 The width of the signal module is given by the width of the signal back plane minus the space used for the card holders. The height is chosen from the height of the card holders, and the closest price break of the pcb supplier. The form factor chosen is shown in \cref{fig:tk511_img}
 \begin{figure}
     \centering
-    \includegraphics{img/TK511_Blindkort.jpg}
+    \includegraphics[width=0.5\textwidth]{img/TK511_Blindkort.jpg}
     \caption{Signal module pcb}
     \label{fig:tk511_img}
 \end{figure}
 
 \subsubsection{Power supply module form factor}
+The form factor for the power supply modules is the same as for the signal modules with the exception of the connector being offset.
 
 \subsubsection{Power module form factor}
-For the power modules back plane connectors from samtec with four powerful pins and 16 signal pins was chosen.
-Samtec connectors.
-Widht
+For the power modules back plane connectors from samtec with four powerful pins and 16 signal pins was chosen. The width is chosen as the same as the signal modules.
+The form facor chosen is shown in \cref{fig:TK531}.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{img/TK531_IMG.jpg}
+    \caption{Power module form factor}
+    \label{fig:TK531}
+\end{figure}
